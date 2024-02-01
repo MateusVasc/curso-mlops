@@ -19,10 +19,14 @@ jobs:
           python-version: 3.9
           node-version: 20
 
-      - name: Instala o miniconda
-        uses: conda-incubator/setup-minconda@v3
-        with:
-          activate-environment: curso
+      - name: Instala o Micromamba
+        run: |
+          wget -qO- https://micromamba.snakepit.net/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
+          chmod +x bin/micromamba
+          ./bin/micromamba shell init -s bash -p ~/micromamba
+          source ~/.bashrc
+          micromamba create -n curso python=3.9 --yes
+          micromamba activate curso
 
       - name: Instala as bibliotecas python
         run: |
